@@ -2,86 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Space Theme</title>
+  <title>ProForAll</title>
   <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: radial-gradient(ellipse at bottom, #000 0%, #050505 100%);
-    }
-
-    .stars, .meteors {
-      position: absolute;
-      width: 100%;
+    html, body {
       height: 100%;
-      top: 0;
-      left: 0;
+      margin: 0;
+      font-family: Arial, sans-serif;
       overflow: hidden;
+      background-color: black;
     }
-
-    .stars span {
+    body {
+      background: url('https://i.imgur.com/ium1tDl.jpg') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      transition: background-position 0.1s ease-out;
+      flex-direction: column; /* to stack items vertically */
+    }
+    .text {
+      font-size: 48px;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 2px 2px 6px #000;
+      z-index: 2;
+      margin-bottom: 30px;
+    }
+    .discord-button, .ranks-link {
+      background-color: #5865F2;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      z-index: 3;
+      margin: 5px;
+      display: inline-block;
+    }
+    .discord-button:hover, .ranks-link:hover {
+      background-color: #4752c4;
+    }
+    .buttons-container {
       position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      animation: twinkle 2s infinite ease-in-out alternate;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 3;
     }
-
-    @keyframes twinkle {
-      0% { opacity: 0.2; }
-      100% { opacity: 1; }
-    }
-
-    .meteor {
-      position: absolute;
-      width: 3px;
-      height: 100px;
-      background: linear-gradient(45deg, white, rgba(255,255,255,0));
-      animation: fall 3s linear infinite;
-      opacity: 0.7;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(-100%) translateX(0);
-        opacity: 0;
-      }
-      30% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) translateX(200px);
-        opacity: 0;
-      }
-    }
-
-    /* Generate random stars */
-    .stars span:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
-    .stars span:nth-child(2) { top: 30%; left: 45%; animation-delay: 1s; }
-    .stars span:nth-child(3) { top: 70%; left: 65%; animation-delay: 2s; }
-    .stars span:nth-child(4) { top: 90%; left: 35%; animation-delay: 3s; }
-    .stars span:nth-child(5) { top: 50%; left: 85%; animation-delay: 4s; }
-
-    /* Generate multiple meteors */
-    .meteor:nth-child(1) { top: -100px; left: 20%; animation-delay: 0s; }
-    .meteor:nth-child(2) { top: -100px; left: 50%; animation-delay: 2s; }
-    .meteor:nth-child(3) { top: -100px; left: 75%; animation-delay: 4s; }
   </style>
 </head>
 <body>
-  <div class="stars">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="buttons-container">
+    <a class="discord-button" href="https://discord.gg/proforall" target="_blank">Join Discord</a>
+    <a class="ranks-link" href="ranks.html">Ranks Page</a>
   </div>
+  <div class="text">ProForAll</div>
 
-  <div class="meteors">
-    <div class="meteor"></div>
-    <div class="meteor"></div>
-    <div class="meteor"></div>
-  </div>
+  <script>
+    const body = document.body;
+
+    function updateBackgroundPosition(xPercent, yPercent) {
+      body.style.backgroundPosition = `${50 + xPercent}% ${50 + yPercent}%`;
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 10; // range -5 to +5
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      updateBackgroundPosition(x, y);
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      const x = (touch.clientX / window.innerWidth - 0.5) * 10;
+      const y = (touch.clientY / window.innerHeight - 0.5) * 10;
+      updateBackgroundPosition(x, y);
+    }, { passive: true });
+  </script>
 </body>
 </html>
